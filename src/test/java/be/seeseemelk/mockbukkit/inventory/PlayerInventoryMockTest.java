@@ -1,16 +1,16 @@
 package be.seeseemelk.mockbukkit.inventory;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.bukkit.Material;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import be.seeseemelk.mockbukkit.MockBukkit;
 import be.seeseemelk.mockbukkit.ServerMock;
@@ -21,14 +21,14 @@ public class PlayerInventoryMockTest
 	private ServerMock server;
 	private PlayerInventoryMock inventory;
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception
 	{
 		server = MockBukkit.mock();
 		inventory = new PlayerInventoryMock(null);
 	}
 
-	@After
+	@AfterEach
 	public void tearDown() throws Exception
 	{
 		MockBukkit.unmock();
@@ -93,16 +93,16 @@ public class PlayerInventoryMockTest
 		}
 	}
 
-	@Test(expected = ArrayIndexOutOfBoundsException.class)
+	@Test
 	public void setHeldItemSlot_TooLow_Exception()
 	{
-		inventory.setHeldItemSlot(-1);
+		assertThrows(ArrayIndexOutOfBoundsException.class, () -> inventory.setHeldItemSlot(-1));
 	}
 
-	@Test(expected = ArrayIndexOutOfBoundsException.class)
+	@Test
 	public void setHeldItemSlot_TooHigh_Exception()
 	{
-		inventory.setHeldItemSlot(9);
+		assertThrows(ArrayIndexOutOfBoundsException.class, () -> inventory.setHeldItemSlot(9));
 	}
 
 	@Test
@@ -235,28 +235,28 @@ public class PlayerInventoryMockTest
 		assertEquals(item, inventory.getItemInOffHand());
 	}
 
-	@Test(expected = NullPointerException.class)
-	public void setArmorContents_Null_Exception()
-	{
-		inventory.setArmorContents(null);
+	@Test
+	public void setArmorContents_Null_Exception() {
+		assertThrows(NullPointerException.class, () -> inventory.setArmorContents(null));
 	}
 
-	@Test(expected = NullPointerException.class)
+	@Test
 	public void setExtraContents_Null_Exception()
 	{
-		inventory.setExtraContents(null);
+
+		assertThrows(NullPointerException.class, () -> inventory.setExtraContents(null));
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void setArmorContents_TooLarge_Exception()
 	{
-		inventory.setArmorContents(new ItemStack[5]);
+		assertThrows(IllegalArgumentException.class, () -> inventory.setArmorContents(new ItemStack[5]));
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void setExtraContents_TooLarge_Exception()
 	{
-		inventory.setExtraContents(new ItemStack[2]);
+		assertThrows(IllegalArgumentException.class, () -> inventory.setExtraContents(new ItemStack[2]));
 	}
 
 	@Test

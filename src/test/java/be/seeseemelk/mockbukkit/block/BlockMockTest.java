@@ -1,9 +1,9 @@
 package be.seeseemelk.mockbukkit.block;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.bukkit.Chunk;
 import org.bukkit.Location;
@@ -11,9 +11,9 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import be.seeseemelk.mockbukkit.WorldMock;
 import be.seeseemelk.mockbukkit.block.data.BlockDataMock;
@@ -22,7 +22,7 @@ public class BlockMockTest
 {
 	private BlockMock block;
 
-	@Before
+	@BeforeEach
 	public void setUp()
 	{
 		World world = new WorldMock();
@@ -95,11 +95,13 @@ public class BlockMockTest
 		block.assertType(Material.DIRT);
 	}
 
-	@Test(expected = AssertionError.class)
+	@Test
 	public void assertType_IncorrectType_Fails()
 	{
-		block.setType(Material.STONE);
-		block.assertType(Material.DIRT);
+		assertThrows(AssertionError.class, () -> {
+			block.setType(Material.STONE);
+			block.assertType(Material.DIRT);
+		});
 	}
 
 	@Test
@@ -132,7 +134,7 @@ public class BlockMockTest
 	@Test
 	public void testGetBlockData()
 	{
-		Assert.assertEquals(block.getType(), block.getBlockData().getMaterial());
+		Assertions.assertEquals(block.getType(), block.getBlockData().getMaterial());
 	}
 
 	@Test
@@ -142,8 +144,8 @@ public class BlockMockTest
 		Material oldType = block.getType();
 
 		block.setBlockData(blockData);
-		Assert.assertEquals(blockData, block.getBlockData());
-		Assert.assertEquals(blockData.getMaterial(), block.getType());
+		Assertions.assertEquals(blockData, block.getBlockData());
+		Assertions.assertEquals(blockData.getMaterial(), block.getType());
 		block.setType(oldType);
 	}
 

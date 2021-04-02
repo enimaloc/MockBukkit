@@ -47,7 +47,7 @@ Once your directories are set up, you can create unit tests like this::
         private ServerMock server;
         private MyPlugin plugin;
 
-        @Before    
+        @BeforeEach
         public void setUp() {
             // Start the mock server
             server = MockBukkit.mock();
@@ -55,7 +55,7 @@ Once your directories are set up, you can create unit tests like this::
             plugin = MockBukkit.load(MyPlugin.class);
         }
 
-        @After
+        @AfterEach
         public void tearDown() {
             // Stop the mock server
             MockBukkit.unmock();
@@ -68,7 +68,7 @@ Once your directories are set up, you can create unit tests like this::
     }
 
 UnimplementationOperationException
----------------------------------- 
+----------------------------------
 Sometimes your code may use a method that is not yet implemented in MockBukkit.
 When this happens MockBukkit will, instead of returning placeholder values, throw
 an ``UnimplementedOperationException``.

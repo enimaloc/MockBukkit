@@ -1,7 +1,7 @@
 package be.seeseemelk.mockbukkit.entity;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
@@ -249,7 +249,7 @@ public class PlayerMock extends LivingEntityMock implements Player, SoundReceive
 	{
 		Location respawnLocation = getBedSpawnLocation();
 		boolean isBedSpawn = respawnLocation != null;
-		
+
 		// TODO: Respawn Anchors are not yet supported.
 		boolean isAnchorSpawn = false;
 
@@ -1039,7 +1039,7 @@ public class PlayerMock extends LivingEntityMock implements Player, SoundReceive
 	{
 		heardSounds.add(new AudioExperience(sound, category, location, volume, pitch));
 	}
-	
+
 	@Override
 	public @NotNull List<AudioExperience> getHeardSounds()
 	{

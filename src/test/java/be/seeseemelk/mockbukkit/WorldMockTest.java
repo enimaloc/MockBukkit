@@ -1,12 +1,12 @@
 package be.seeseemelk.mockbukkit;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assume.assumeFalse;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assumptions.assumeFalse;
 
 import java.util.List;
 
@@ -18,9 +18,9 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.world.TimeSkipEvent;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import be.seeseemelk.mockbukkit.block.BlockMock;
 
@@ -28,13 +28,13 @@ public class WorldMockTest
 {
 	private ServerMock server;
 
-	@Before
+	@BeforeEach
 	public void setUp()
 	{
 		server = MockBukkit.mock();
 	}
 
-	@After
+	@AfterEach
 	public void tearDown()
 	{
 		MockBukkit.unmock();
@@ -172,7 +172,7 @@ public class WorldMockTest
 	public void onCreated_WeatherDurationSetToZero()
 	{
 		WorldMock world = new WorldMock();
-		assertEquals("Weather duration should be zero", 0, world.getWeatherDuration());
+		assertEquals(0, world.getWeatherDuration(), "Weather duration should be zero");
 	}
 
 	@Test
@@ -181,14 +181,14 @@ public class WorldMockTest
 		WorldMock world = new WorldMock();
 		int duration = 5;
 		world.setWeatherDuration(duration);
-		assertEquals("Weather duration should be set", duration, world.getWeatherDuration());
+		assertEquals(duration, world.getWeatherDuration(), "Weather duration should be set");
 	}
 
 	@Test
 	public void onCreated_NotStorming()
 	{
 		WorldMock world = new WorldMock();
-		assertFalse("The world should not be storming", world.hasStorm());
+		assertFalse(world.hasStorm(), "The world should not be storming");
 	}
 
 	@Test
@@ -197,14 +197,14 @@ public class WorldMockTest
 		WorldMock world = new WorldMock();
 		assumeFalse(world.hasStorm());
 		world.setStorm(true);
-		assertTrue("The world should be storming", world.hasStorm());
+		assertTrue(world.hasStorm(), "The world should be storming");
 	}
 
 	@Test
 	public void onCreated_ThunderDurationSetToZero()
 	{
 		WorldMock world = new WorldMock();
-		assertEquals("Weather duration should be zero", 0, world.getThunderDuration());
+		assertEquals(0, world.getThunderDuration(), "Weather duration should be zero");
 		assertFalse(world.isThundering());
 	}
 
@@ -214,7 +214,7 @@ public class WorldMockTest
 		WorldMock world = new WorldMock();
 		int duration = 20;
 		world.setThunderDuration(duration);
-		assertEquals("Weather duration should be more than zero", duration, world.getThunderDuration());
+		assertEquals(duration, world.getThunderDuration(), "Weather duration should be more than zero");
 		assertTrue(world.isThundering());
 	}
 
@@ -223,7 +223,7 @@ public class WorldMockTest
 	{
 		WorldMock world = new WorldMock();
 		world.setThundering(true);
-		assertTrue("Weather duration should be more than zero", world.getThunderDuration() > 0);
+		assertTrue(world.getThunderDuration() > 0, "Weather duration should be more than zero");
 		assertTrue(world.isThundering());
 	}
 
@@ -243,8 +243,8 @@ public class WorldMockTest
 	public void onCreated_TimeSetToBeZero()
 	{
 		WorldMock world = new WorldMock();
-		assertEquals("World time should be zero", 0L, world.getFullTime());
-		assertEquals("Day time should be zero", 0L, world.getTime());
+		assertEquals(0L, world.getFullTime(), "World time should be zero");
+		assertEquals(0L, world.getTime(), "Day time should be zero");
 	}
 
 	@Test
@@ -289,6 +289,6 @@ public class WorldMockTest
 	public void onCreated_EnvironmentSetToBeNormal()
 	{
 		WorldMock world = new WorldMock();
-		assertEquals("World environment type should be normal", World.Environment.NORMAL, world.getEnvironment());
+		assertEquals(World.Environment.NORMAL, world.getEnvironment(), "World environment type should be normal");
 	}
 }

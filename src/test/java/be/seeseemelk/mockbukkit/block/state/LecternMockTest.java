@@ -1,8 +1,8 @@
 package be.seeseemelk.mockbukkit.block.state;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -11,9 +11,9 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import be.seeseemelk.mockbukkit.MockBukkit;
 import be.seeseemelk.mockbukkit.block.BlockMock;
@@ -23,14 +23,14 @@ public class LecternMockTest
 
 	private Lectern lectern;
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception
 	{
 		MockBukkit.mock();
 		lectern = new LecternMock(Material.LECTERN);
 	}
 
-	@After
+	@AfterEach
 	public void tearDown() throws Exception
 	{
 		MockBukkit.unmock();

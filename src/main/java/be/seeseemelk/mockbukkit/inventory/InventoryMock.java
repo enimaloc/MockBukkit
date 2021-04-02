@@ -1,7 +1,7 @@
 package be.seeseemelk.mockbukkit.inventory;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.*;
 import java.util.function.Predicate;
@@ -109,7 +109,7 @@ public class InventoryMock implements Inventory
 	{
 		int n = getNumberOfItems(item);
 		String message = String.format("Inventory contains only <%d> but expected at least <%d>", n, amount);
-		assertTrue(message, n >= amount);
+		assertTrue(n >= amount, message);
 	}
 
 	/**

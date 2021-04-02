@@ -1,27 +1,27 @@
 package be.seeseemelk.mockbukkit.block.state;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.EnderChest;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
 
 import be.seeseemelk.mockbukkit.MockBukkit;
 import be.seeseemelk.mockbukkit.block.BlockMock;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class EnderChestMockTest
 {
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception
 	{
 		MockBukkit.mock();
 	}
 
-	@After
+	@AfterEach
 	public void tearDown() throws Exception
 	{
 		MockBukkit.unmock();

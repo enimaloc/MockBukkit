@@ -1,13 +1,13 @@
 package be.seeseemelk.mockbukkit.inventory.meta;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import be.seeseemelk.mockbukkit.MockBukkit;
 import be.seeseemelk.mockbukkit.entity.OfflinePlayerMock;
@@ -15,13 +15,13 @@ import be.seeseemelk.mockbukkit.entity.OfflinePlayerMock;
 public class SkullMetaMockTest
 {
 
-	@Before
+	@BeforeEach
 	public void setUp()
 	{
 		MockBukkit.mock();
 	}
 
-	@After
+	@AfterEach
 	public void tearDown()
 	{
 		MockBukkit.unmock();

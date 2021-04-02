@@ -1,19 +1,19 @@
 package be.seeseemelk.mockbukkit;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Date;
 import java.util.Set;
 
 import org.bukkit.BanEntry;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class MockBanListTest
 {
 	private MockBanList banList;
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception
 	{
 		banList = new MockBanList();

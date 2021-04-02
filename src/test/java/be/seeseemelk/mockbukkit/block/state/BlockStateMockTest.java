@@ -1,33 +1,30 @@
 package be.seeseemelk.mockbukkit.block.state;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.Chest;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
 
 import be.seeseemelk.mockbukkit.MockBukkit;
 import be.seeseemelk.mockbukkit.WorldMock;
 import be.seeseemelk.mockbukkit.block.BlockMock;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class BlockStateMockTest
 {
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception
 	{
 		MockBukkit.mock();
 	}
 
-	@After
+	@AfterEach
 	public void tearDown() throws Exception
 	{
 		MockBukkit.unmock();
@@ -59,11 +56,13 @@ public class BlockStateMockTest
 		assertFalse(state.isPlaced());
 	}
 
-	@Test(expected = IllegalStateException.class)
+	@Test
 	public void getBlockNotPlacedException()
 	{
-		BlockState state = new BlockStateMock(Material.SAND);
-		state.getBlock();
+		assertThrows(IllegalStateException.class, () -> {
+			BlockState state = new BlockStateMock(Material.SAND);
+			state.getBlock();
+		});
 	}
 
 	@Test

@@ -1,6 +1,6 @@
 package be.seeseemelk.mockbukkit.services;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Set;
 
@@ -11,18 +11,21 @@ import org.bukkit.plugin.ServicePriority;
 import be.seeseemelk.mockbukkit.EmptyPlugin;
 import be.seeseemelk.mockbukkit.MockBukkit;
 import be.seeseemelk.mockbukkit.ServerMock;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class ServicesManagerTest {
 	private ServerMock server;
 	private EmptyPlugin plugin;
 
-	@Before
+	@BeforeEach
 	public void setUp() {
 		server = MockBukkit.mock();
 		plugin = MockBukkit.loadWith(EmptyPlugin.class, "empty_plugin.yml");
 	}
 
-	@After
+	@AfterEach
 	public void tearDown() {
 		MockBukkit.unmock();
 	}

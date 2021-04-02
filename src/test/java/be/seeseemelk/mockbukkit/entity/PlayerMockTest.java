@@ -1,14 +1,14 @@
 package be.seeseemelk.mockbukkit.entity;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-import static org.junit.Assume.assumeTrue;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -48,9 +48,9 @@ import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import be.seeseemelk.mockbukkit.MockBukkit;
 import be.seeseemelk.mockbukkit.ServerMock;
@@ -76,7 +76,7 @@ public class PlayerMockTest
 	private UUID uuid;
 	private PlayerMock player;
 
-	@Before
+	@BeforeEach
 	public void setUp()
 	{
 		server = MockBukkit.mock(new ServerMock()
@@ -99,7 +99,7 @@ public class PlayerMockTest
 		player = new PlayerMock(server, "player", uuid);
 	}
 
-	@After
+	@AfterEach
 	public void tearDown()
 	{
 		MockBukkit.unmock();
@@ -154,10 +154,10 @@ public class PlayerMockTest
 		player.assertGameMode(GameMode.SURVIVAL);
 	}
 
-	@Test(expected = AssertionError.class)
+	@Test
 	public void assertGameMode_WrongGameMode_Asserts()
 	{
-		player.assertGameMode(GameMode.CREATIVE);
+		assertThrows(AssertionError.class, () -> player.assertGameMode(GameMode.CREATIVE));
 	}
 
 	@Test
@@ -437,7 +437,7 @@ public class PlayerMockTest
 		{
 			player.setGameMode(gm);
 			Block block = server.addSimpleWorld("world").getBlockAt(0, 0, 0);
-			assertFalse("Block was damaged while in gamemode " + gm.name(), player.simulateBlockDamage(block));
+			assertFalse(player.simulateBlockDamage(block), "Block was damaged while in gamemode " + gm.name());
 		}
 	}
 
@@ -465,7 +465,7 @@ public class PlayerMockTest
 		BlockMock block = server.addSimpleWorld("world").getBlockAt(0, 0, 0);
 		block.setType(Material.STONE);
 		assumeTrue(player.simulateBlockDamage(block));
-		assertFalse("BlockBreakEvent was fired", wasBroken.get());
+		assertFalse(wasBroken.get(), "BlockBreakEvent was fired");
 		block.assertType(Material.STONE);
 	}
 
@@ -493,7 +493,7 @@ public class PlayerMockTest
 		BlockMock block = server.addSimpleWorld("world").getBlockAt(0, 0, 0);
 		block.setType(Material.STONE);
 		assumeTrue(player.simulateBlockDamage(block));
-		assertEquals("BlockBreakEvent was not fired only once", 1, brokenCount.get());
+		assertEquals(1, brokenCount.get(), "BlockBreakEvent was not fired only once");
 		block.assertType(Material.AIR);
 	}
 
@@ -521,7 +521,7 @@ public class PlayerMockTest
 		BlockMock block = server.addSimpleWorld("world").getBlockAt(0, 0, 0);
 		block.setType(Material.STONE);
 		assumeTrue(player.simulateBlockBreak(block));
-		assertEquals("BlockBreakEvent was not fired only once", 1, brokenCount.get());
+		assertEquals(1, brokenCount.get(), "BlockBreakEvent was not fired only once");
 		block.assertType(Material.AIR);
 	}
 
@@ -603,16 +603,16 @@ public class PlayerMockTest
 		assertEquals(0.5, player.getExp(), 0.5);
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void setExp_GreaterThanOne_ExceptionThrown()
 	{
-		player.setExp(1.1F);
+		assertThrows(IllegalArgumentException.class, () -> player.setExp(1.1F));
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void setExp_LessThanZero_ExceptionThrown()
 	{
-		player.setExp(-1.0F);
+		assertThrows(IllegalArgumentException.class, () -> player.setExp(-1.0F));
 	}
 
 	@Test
@@ -1005,12 +1005,14 @@ public class PlayerMockTest
 		assertNotEquals(player.getFirstPlayed(), player.getLastPlayed());
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void testIllegalArgumentForSpawning()
 	{
-		World world = new WorldMock();
-		Location location = new Location(world, 300, 100, 300);
-		world.spawnEntity(location, EntityType.PLAYER);
+		assertThrows(IllegalArgumentException.class, () -> {
+			World    world    = new WorldMock();
+			Location location = new Location(world, 300, 100, 300);
+			world.spawnEntity(location, EntityType.PLAYER);
+		});
 	}
 
 	@Test

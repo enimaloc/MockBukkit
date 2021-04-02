@@ -1,13 +1,13 @@
 package be.seeseemelk.mockbukkit.scoreboard;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import be.seeseemelk.mockbukkit.MockBukkit;
 import be.seeseemelk.mockbukkit.ServerMock;
@@ -20,7 +20,7 @@ public class ScoreMockTest
 	private ObjectiveMock objective;
 	private ScoreMock score;
 
-	@Before
+	@BeforeEach
 	public void setUp()
 	{
 		server = MockBukkit.mock();
@@ -29,7 +29,7 @@ public class ScoreMockTest
 		score = objective.getScore("Entry");
 	}
 
-	@After
+	@AfterEach
 	public void tearDown()
 	{
 		MockBukkit.unmock();
@@ -53,11 +53,13 @@ public class ScoreMockTest
 		assertEquals(0, score.getScore());
 	}
 
-	@Test(expected = IllegalStateException.class)
+	@Test
 	public void getScore_ObjectiveUnregistered_ThrowsError()
 	{
-		objective.unregister();
-		score.getScore();
+		assertThrows(IllegalStateException.class, () -> {
+			objective.unregister();
+			score.getScore();
+		});
 	}
 
 	@Test

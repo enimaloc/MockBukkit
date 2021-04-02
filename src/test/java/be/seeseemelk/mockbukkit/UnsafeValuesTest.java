@@ -6,8 +6,10 @@ import java.util.regex.Pattern;
 import org.bukkit.plugin.InvalidDescriptionException;
 import org.bukkit.plugin.InvalidPluginException;
 import org.bukkit.plugin.PluginDescriptionFile;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class UnsafeValuesTest
 {
@@ -15,7 +17,7 @@ public class UnsafeValuesTest
 
 	private MockUnsafeValues mockUnsafeValues;
 
-	@Before
+	@BeforeEach
 	public void setUp()
 	{
 		mockUnsafeValues = new MockUnsafeValues();
@@ -60,16 +62,18 @@ public class UnsafeValuesTest
 		checkVersion("1.13");
 	}
 
-	@Test(expected = InvalidPluginException.class)
+	@Test
 	public void checkSupported_unsupportedVersion() throws InvalidPluginException
 	{
-		checkVersion("1.8");
+		assertThrows(InvalidPluginException.class, () -> checkVersion("1.8"));
 	}
 
-	@Test(expected = InvalidPluginException.class)
+	@Test
 	public void checkSupported_noSpecifiedVersion() throws InvalidPluginException
 	{
-		PluginDescriptionFile pluginDescriptionFile = new PluginDescriptionFile("VersionTest", "1.0", "not.exists");
-		mockUnsafeValues.checkSupported(pluginDescriptionFile);
+		assertThrows(InvalidPluginException.class, () -> {
+			PluginDescriptionFile pluginDescriptionFile = new PluginDescriptionFile("VersionTest", "1.0", "not.exists");
+			mockUnsafeValues.checkSupported(pluginDescriptionFile);
+		});
 	}
 }

@@ -1,10 +1,10 @@
 package be.seeseemelk.mockbukkit.block.state;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
@@ -12,9 +12,9 @@ import org.bukkit.block.Block;
 import org.bukkit.block.ShulkerBox;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import be.seeseemelk.mockbukkit.MockBukkit;
 import be.seeseemelk.mockbukkit.block.BlockMock;
@@ -24,14 +24,14 @@ public class ShulkerBoxMockTest
 
 	private ShulkerBoxMock shulkerBox;
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception
 	{
 		MockBukkit.mock();
 		shulkerBox = new ShulkerBoxMock(Material.SHULKER_BOX);
 	}
 
-	@After
+	@AfterEach
 	public void tearDown() throws Exception
 	{
 		MockBukkit.unmock();
@@ -44,10 +44,10 @@ public class ShulkerBoxMockTest
 		assertTrue(block.getState() instanceof ShulkerBox);
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void testShulkerBoxStateMaterialValidation()
 	{
-		new ShulkerBoxMock(Material.BREAD);
+		assertThrows(IllegalArgumentException.class, () -> new ShulkerBoxMock(Material.BREAD));
 	}
 
 	@Test
@@ -92,10 +92,10 @@ public class ShulkerBoxMockTest
 		assertEquals(name, shulkerBox.getCustomName());
 	}
 
-	@Test(expected = NullPointerException.class)
+	@Test
 	public void testNullPointerUndyed()
 	{
-		shulkerBox.getColor();
+		assertThrows(NullPointerException.class, () -> shulkerBox.getColor());
 	}
 
 	@Test

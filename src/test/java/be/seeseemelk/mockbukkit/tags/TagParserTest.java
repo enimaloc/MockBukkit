@@ -1,11 +1,10 @@
 package be.seeseemelk.mockbukkit.tags;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.bukkit.NamespacedKey;
 import org.jetbrains.annotations.NotNull;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class TagParserTest
 {
@@ -18,13 +17,15 @@ public class TagParserTest
 		assertEquals(key, parser.getKey());
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void testNullability() throws TagMisconfigurationException
 	{
-		NamespacedKey key = NamespacedKey.minecraft("i_dont_exist");
-		TagParser parser = new TagParser(TagRegistry.BLOCKS, key);
-		parser.parse(null, (a, b) ->
-		{
+		assertThrows(IllegalArgumentException.class, () -> {
+			NamespacedKey key    = NamespacedKey.minecraft("i_dont_exist");
+			TagParser     parser = new TagParser(TagRegistry.BLOCKS, key);
+			parser.parse(null, (a, b) ->
+			{
+			});
 		});
 	}
 
@@ -84,7 +85,7 @@ public class TagParserTest
 			{
 			});
 
-			Assert.fail("JSON was misconfigured, should have thrown an exception");
+			fail("JSON was misconfigured, should have thrown an exception");
 		}
 		catch (TagMisconfigurationException x)
 		{

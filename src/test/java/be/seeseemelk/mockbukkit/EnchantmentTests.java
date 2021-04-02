@@ -1,24 +1,24 @@
 package be.seeseemelk.mockbukkit;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.bukkit.enchantments.Enchantment;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import be.seeseemelk.mockbukkit.enchantments.EnchantmentsMock;
 
 public class EnchantmentTests
 {
-	@Before
+	@BeforeEach
 	public void setUp()
 	{
 		MockBukkit.mock();
 	}
 
-	@After
+	@AfterEach
 	public void tearDown()
 	{
 		MockBukkit.unmock();

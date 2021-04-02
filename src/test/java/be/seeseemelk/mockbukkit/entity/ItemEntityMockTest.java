@@ -1,9 +1,9 @@
 package be.seeseemelk.mockbukkit.entity;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.UUID;
 
@@ -12,9 +12,9 @@ import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Item;
 import org.bukkit.inventory.ItemStack;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import be.seeseemelk.mockbukkit.MockBukkit;
 import be.seeseemelk.mockbukkit.ServerMock;
@@ -26,14 +26,14 @@ public class ItemEntityMockTest
 	private ServerMock server;
 	private WorldMock world;
 
-	@Before
+	@BeforeEach
 	public void setUp()
 	{
 		server = MockBukkit.mock();
 		world = new WorldMock();
 	}
 
-	@After
+	@AfterEach
 	public void tearDown()
 	{
 		MockBukkit.unmock();
@@ -90,11 +90,13 @@ public class ItemEntityMockTest
 		assertTrue(world.getEntities().contains(entity));
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void testIllegalArgumentForSpawning()
 	{
-		Location location = new Location(world, 300, 100, 300);
-		world.spawnEntity(location, EntityType.DROPPED_ITEM);
+		assertThrows(IllegalArgumentException.class, () -> {
+			Location location = new Location(world, 300, 100, 300);
+			world.spawnEntity(location, EntityType.DROPPED_ITEM);
+		});
 	}
 
 	@Test
@@ -145,15 +147,17 @@ public class ItemEntityMockTest
 		assertEquals(newItem, entity.getItemStack());
 	}
 
-	@Test(expected = NullPointerException.class)
+	@Test
 	public void testSetItemStackNull()
 	{
-		ItemStack item = new ItemStack(Material.REDSTONE);
-		Location location = new Location(world, 600, 100, 600);
+		assertThrows(NullPointerException.class, () -> {
+			ItemStack item     = new ItemStack(Material.REDSTONE);
+			Location  location = new Location(world, 600, 100, 600);
 
-		Item entity = world.dropItem(location, item);
+			Item entity = world.dropItem(location, item);
 
-		// Spigot really just throws a NPE here, so this is accurate behaviour
-		entity.setItemStack(null);
+			// Spigot really just throws a NPE here, so this is accurate behaviour
+			entity.setItemStack(null);
+		});
 	}
 }

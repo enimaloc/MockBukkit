@@ -8,11 +8,11 @@ import org.bukkit.scoreboard.NameTagVisibility;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.ScoreboardManager;
 import org.bukkit.scoreboard.Team;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Created for the AddstarMC Project. Created by Narimm on 24/12/2018.
@@ -29,7 +29,7 @@ public class TeamMockTest
 
 
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception
 	{
 		server = MockBukkit.mock();
@@ -40,7 +40,7 @@ public class TeamMockTest
 		team = new TeamMock("Test", board);
 	}
 
-	@After
+	@AfterEach
 	public void tearDown() throws Exception
 	{
 		MockBukkit.unload();
@@ -174,11 +174,13 @@ public class TeamMockTest
 		team.unregister();
 	}
 
-	@Test(expected = IllegalStateException.class)
+	@Test
 	public void unregister_UnregisteredTwice_ThrowsException()
 	{
-		team.unregister();
-		team.unregister();
+		assertThrows(IllegalStateException.class, () -> {
+			team.unregister();
+			team.unregister();
+		});
 	}
 }
 

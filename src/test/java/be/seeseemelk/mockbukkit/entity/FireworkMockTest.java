@@ -1,10 +1,10 @@
 package be.seeseemelk.mockbukkit.entity;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.UUID;
 
@@ -16,9 +16,9 @@ import org.bukkit.FireworkEffect.Type;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Firework;
 import org.bukkit.inventory.meta.FireworkMeta;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import be.seeseemelk.mockbukkit.MockBukkit;
 import be.seeseemelk.mockbukkit.ServerMock;
@@ -31,14 +31,14 @@ public class FireworkMockTest
 	private ServerMock server;
 	private World world;
 
-	@Before
+	@BeforeEach
 	public void setUp()
 	{
 		server = MockBukkit.mock();
 		world = new WorldMock();
 	}
 
-	@After
+	@AfterEach
 	public void tearDown()
 	{
 		MockBukkit.unmock();
@@ -103,10 +103,12 @@ public class FireworkMockTest
 		assertEquals(meta, firework.getFireworkMeta());
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void testSetFireworkMetaNotNull()
 	{
-		Firework firework = new FireworkMock(server, UUID.randomUUID());
-		firework.setFireworkMeta(null);
+		assertThrows(IllegalArgumentException.class, () -> {
+			Firework firework = new FireworkMock(server, UUID.randomUUID());
+			firework.setFireworkMeta(null);
+		});
 	}
 }

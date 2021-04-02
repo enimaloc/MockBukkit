@@ -1,9 +1,9 @@
 package be.seeseemelk.mockbukkit.inventory.meta;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import be.seeseemelk.mockbukkit.MockPlugin;
 import java.util.Arrays;
@@ -20,9 +20,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.Repairable;
 import org.bukkit.persistence.PersistentDataType;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import be.seeseemelk.mockbukkit.MockBukkit;
 
@@ -30,14 +30,14 @@ public class ItemMetaMockTest
 {
 	private ItemMetaMock meta;
 
-	@Before
+	@BeforeEach
 	public void setUp()
 	{
 		MockBukkit.mock();
 		meta = new ItemMetaMock();
 	}
 
-	@After
+	@AfterEach
 	public void tearDown()
 	{
 		MockBukkit.unmock();
@@ -467,11 +467,13 @@ public class ItemMetaMockTest
 		meta.assertHasNoLore();
 	}
 
-	@Test(expected = AssertionError.class)
+	@Test
 	public void assertHasNoLore_HasNoLore_Asserts()
 	{
-		meta.setLore(Arrays.asList("Hello", "world"));
-		meta.assertHasNoLore();
+		assertThrows(AssertionError.class, () -> {
+			meta.setLore(Arrays.asList("Hello", "world"));
+			meta.assertHasNoLore();
+		});
 	}
 
 	@Test
@@ -481,11 +483,13 @@ public class ItemMetaMockTest
 		meta.assertLore("Hello", "world");
 	}
 
-	@Test(expected = AssertionError.class)
-	public void assertLore_InorrectLore_Asserts()
+	@Test
+	public void assertLore_IncorrectLore_Asserts()
 	{
-		meta.setLore(Arrays.asList("Hello", "world"));
-		meta.assertLore("Something", "else");
+		assertThrows(AssertionError.class, () -> {
+			meta.setLore(Arrays.asList("Hello", "world"));
+			meta.assertLore("Something", "else");
+		});
 	}
 
 	@Test

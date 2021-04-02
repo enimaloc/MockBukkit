@@ -1,11 +1,11 @@
 package be.seeseemelk.mockbukkit.entity;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Optional;
 import java.util.Set;
@@ -25,10 +25,10 @@ import org.bukkit.permissions.PermissionAttachment;
 import org.bukkit.permissions.PermissionAttachmentInfo;
 import org.bukkit.permissions.PermissionDefault;
 import org.bukkit.util.Vector;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import be.seeseemelk.mockbukkit.MockBukkit;
 import be.seeseemelk.mockbukkit.MockPlugin;
@@ -41,7 +41,7 @@ public class EntityMockTest
 	private WorldMock world;
 	private EntityMock entity;
 
-	@Before
+	@BeforeEach
 	public void setUp()
 	{
 		server = MockBukkit.mock();
@@ -49,7 +49,7 @@ public class EntityMockTest
 		entity = new SimpleEntityMock(server);
 	}
 
-	@After
+	@AfterEach
 	public void tearDown()
 	{
 		MockBukkit.unmock();
@@ -83,12 +83,14 @@ public class EntityMockTest
 		entity.assertLocation(location, 5.0);
 	}
 
-	@Test(expected = AssertionError.class)
+	@Test
 	public void assertLocation_WrongLocation_Asserts()
 	{
-		Location location = entity.getLocation();
-		location.add(0, 10.0, 0);
-		entity.assertLocation(location, 5.0);
+		assertThrows(AssertionError.class, () -> {
+			Location location = entity.getLocation();
+			location.add(0, 10.0, 0);
+			entity.assertLocation(location, 5.0);
+		});
 	}
 
 	@Test
@@ -100,11 +102,13 @@ public class EntityMockTest
 		assertEquals(TeleportCause.PLUGIN, entity.getTeleportCause());
 	}
 
-	@Test(expected = AssertionError.class)
+	@Test
 	public void assertTeleported_NotTeleported_Asserts()
 	{
-		Location location = entity.getLocation();
-		entity.assertTeleported(location, 5.0);
+		assertThrows(AssertionError.class, () -> {
+			Location location = entity.getLocation();
+			entity.assertTeleported(location, 5.0);
+		});
 	}
 
 	@Test
@@ -113,11 +117,13 @@ public class EntityMockTest
 		entity.assertNotTeleported();
 	}
 
-	@Test(expected = AssertionError.class)
+	@Test
 	public void assertNotTeleported_Teleported_Asserts()
 	{
-		entity.teleport(entity.getLocation());
-		entity.assertNotTeleported();
+		assertThrows(AssertionError.class, () -> {
+			entity.teleport(entity.getLocation());
+			entity.assertNotTeleported();
+		});
 	}
 
 	@Test
@@ -199,14 +205,14 @@ public class EntityMockTest
 	public void equals_SameUUID_Equal()
 	{
 		EntityMock entity2 = new SimpleEntityMock(server, entity.getUniqueId());
-		assertEquals("Two equal entities are not equal", entity, entity2);
+		assertEquals(entity, entity2, "Two equal entities are not equal");
 	}
 
 	@Test
 	public void equals_DifferentUUID_Different()
 	{
 		EntityMock entity2 = new SimpleEntityMock(server);
-		assertNotEquals("Two different entities detected as equal", entity, entity2);
+		assertNotEquals(entity, entity2, "Two different entities detected as equal");
 	}
 
 	@Test
@@ -338,7 +344,7 @@ public class EntityMockTest
 		double initialHealth = zombie.getHealth();
 		zombie.damage(4, player1);
 		double finalHealth = zombie.getHealth();
-		Assert.assertEquals(4, initialHealth - finalHealth, 0.1);
+		Assertions.assertEquals(4, initialHealth - finalHealth, 0.1);
 	}
 
 	@Test

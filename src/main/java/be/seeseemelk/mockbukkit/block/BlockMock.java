@@ -1,6 +1,6 @@
 package be.seeseemelk.mockbukkit.block;
 
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Collection;
 import java.util.List;
@@ -30,7 +30,7 @@ import be.seeseemelk.mockbukkit.UnimplementedOperationException;
 import be.seeseemelk.mockbukkit.block.data.BlockDataMock;
 import be.seeseemelk.mockbukkit.block.state.BlockStateMock;
 import be.seeseemelk.mockbukkit.metadata.MetadataTable;
-import junit.framework.AssertionFailedError;
+import org.opentest4j.AssertionFailedError;
 
 public class BlockMock implements Block
 {

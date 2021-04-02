@@ -1,16 +1,16 @@
 package be.seeseemelk.mockbukkit;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class CoordinateTest
 {
 	private Coordinate coordinate;
 
-	@Before
+	@BeforeEach
 	public void setUp()
 	{
 		coordinate = new Coordinate();

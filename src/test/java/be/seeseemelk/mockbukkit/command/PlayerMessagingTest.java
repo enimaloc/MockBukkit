@@ -4,9 +4,10 @@ import be.seeseemelk.mockbukkit.MockBukkit;
 import be.seeseemelk.mockbukkit.ServerMock;
 import be.seeseemelk.mockbukkit.entity.PlayerMock;
 import net.md_5.bungee.api.chat.TextComponent;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class PlayerMessagingTest
 {
@@ -14,14 +15,14 @@ public class PlayerMessagingTest
 	private ServerMock server;
 	private PlayerMock sender;
 
-	@Before
+	@BeforeEach
 	public void setUp()
 	{
 		server = MockBukkit.mock();
 		sender = server.addPlayer();
 	}
 
-	@After
+	@AfterEach
 	public void tearDown()
 	{
 		MockBukkit.unmock();
@@ -34,10 +35,12 @@ public class PlayerMessagingTest
 		sender.assertSaid("Spigot message");
 	}
 
-	@Test(expected = AssertionError.class)
+	@Test
 	public void assertSaid_WrongMessage_spigot_api_Asserts()
 	{
-		sender.sendMessage("Spigot message");
-		sender.assertSaid("Some other message");
+		Assertions.assertThrows(AssertionError.class, () -> {
+			sender.sendMessage("Spigot message");
+			sender.assertSaid("Some other message");
+		});
 	}
 }

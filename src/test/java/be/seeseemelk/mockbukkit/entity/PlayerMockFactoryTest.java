@@ -1,12 +1,12 @@
 package be.seeseemelk.mockbukkit.entity;
 
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.bukkit.entity.Player;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import be.seeseemelk.mockbukkit.MockBukkit;
 import be.seeseemelk.mockbukkit.ServerMock;
@@ -16,14 +16,14 @@ public class PlayerMockFactoryTest
 	private ServerMock server;
 	private PlayerMockFactory factory;
 
-	@Before
+	@BeforeEach
 	public void setUp()
 	{
 		server = MockBukkit.mock();
 		factory = new PlayerMockFactory(server);
 	}
 
-	@After
+	@AfterEach
 	public void tearDown()
 	{
 		MockBukkit.unmock();
@@ -42,7 +42,7 @@ public class PlayerMockFactoryTest
 	{
 		Player player1 = factory.createRandomPlayer();
 		Player player2 = factory.createRandomPlayer();
-		assertNotEquals("Two random players are the same", player1, player2);
+		assertNotEquals(player1, player2, "Two random players are the same");
 	}
 
 }

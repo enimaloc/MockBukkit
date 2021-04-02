@@ -1,16 +1,16 @@
 package be.seeseemelk.mockbukkit.block.state;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import be.seeseemelk.mockbukkit.MockBukkit;
 import be.seeseemelk.mockbukkit.block.BlockMock;
@@ -20,14 +20,14 @@ public class SignMockTest
 
 	private Sign sign;
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception
 	{
 		MockBukkit.mock();
 		sign = new SignMock(Material.OAK_SIGN);
 	}
 
-	@After
+	@AfterEach
 	public void tearDown() throws Exception
 	{
 		MockBukkit.unmock();
@@ -61,22 +61,22 @@ public class SignMockTest
 		assertEquals(text, sign.getLines()[2]);
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void testLineNotNull()
 	{
-		sign.setLine(0, null);
+		assertThrows(IllegalArgumentException.class, () -> sign.setLine(0, null));
 	}
 
-	@Test(expected = IndexOutOfBoundsException.class)
+	@Test
 	public void testLineNegative()
 	{
-		sign.getLine(-100);
+		assertThrows(IndexOutOfBoundsException.class, () -> sign.getLine(-100));
 	}
 
-	@Test(expected = IndexOutOfBoundsException.class)
+	@Test
 	public void testLineTooHigh()
 	{
-		sign.getLine(100);
+		assertThrows(IndexOutOfBoundsException.class, () -> sign.getLine(100));
 	}
 
 }

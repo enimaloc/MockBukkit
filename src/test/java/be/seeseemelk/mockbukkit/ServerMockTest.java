@@ -2,14 +2,8 @@ package be.seeseemelk.mockbukkit;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assume.assumeTrue;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assumptions.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,9 +20,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scoreboard.ScoreboardManager;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import be.seeseemelk.mockbukkit.command.CommandResult;
 import be.seeseemelk.mockbukkit.entity.EntityMock;
@@ -42,13 +36,13 @@ public class ServerMockTest
 {
 	private ServerMock server;
 
-	@Before
+	@BeforeEach
 	public void setUp()
 	{
 		server = MockBukkit.mock();
 	}
 
-	@After
+	@AfterEach
 	public void tearDown()
 	{
 		MockBukkit.unmock();
@@ -76,8 +70,8 @@ public class ServerMockTest
 		assertEquals(player2, server.getPlayer(1));
 
 		Set<EntityMock> entities = server.getEntities();
-		assertTrue("Player 1 was not registered", entities.contains(player1));
-		assertTrue("Player 2 was not registered", entities.contains(player2));
+		assertTrue(entities.contains(player1), "Player 1 was not registered");
+		assertTrue(entities.contains(player2), "Player 2 was not registered");
 	}
 
 	@Test
@@ -105,18 +99,22 @@ public class ServerMockTest
 		assertNotEquals(player1, player2);
 	}
 
-	@Test(expected = ArrayIndexOutOfBoundsException.class)
+	@Test
 	public void getPlayers_Negative_ArrayIndexOutOfBoundsException()
 	{
-		server.setPlayers(2);
-		server.getPlayer(-1);
+		assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
+			server.setPlayers(2);
+			server.getPlayer(-1);
+		});
 	}
 
-	@Test(expected = ArrayIndexOutOfBoundsException.class)
+	@Test
 	public void getPlayers_LargerThanNumberOfPlayers_ArrayIndexOutOfBoundsException()
 	{
-		server.setPlayers(2);
-		server.getPlayer(2);
+		assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
+			server.setPlayers(2);
+			server.getPlayer(2);
+		});
 	}
 
 	@Test
@@ -362,7 +360,7 @@ public class ServerMockTest
 	@Test
 	public void getEntities_NoEntities_EmptySet()
 	{
-		assertTrue("Entities set was not empty", server.getEntities().isEmpty());
+		assertTrue(server.getEntities().isEmpty(),"Entities set was not empty");
 	}
 
 	@Test
@@ -373,8 +371,8 @@ public class ServerMockTest
 		server.registerEntity(entity1);
 		server.registerEntity(entity2);
 		Set<EntityMock> entities = server.getEntities();
-		assertTrue("Set did not contain first entity", entities.contains(entity1));
-		assertTrue("Set did not contain second entity", entities.contains(entity2));
+		assertTrue(entities.contains(entity1),"Set did not contain first entity");
+		assertTrue(entities.contains(entity2), "Set did not contain second entity");
 	}
 
 	@Test
@@ -455,7 +453,7 @@ public class ServerMockTest
 		PlayerMock player = new PlayerMock(server, "operator");
 		server.addPlayer(player);
 		player.setOp(true);
-		
+
 		assertTrue(server.getOperators().contains(player));
 		assertEquals(1, server.getOperators().size());
 	}
@@ -473,27 +471,27 @@ public class ServerMockTest
 		server.assertMainThread();
 	}
 
-	@Test(expected = ThreadAccessException.class)
+	@Test
 	public void assertMainThread_NotMainThread_ThrowsException() throws Exception
 	{
-		AtomicReference<Exception> exceptionThrown = new AtomicReference<>();
+		assertThrows(ThreadAccessException.class, () -> {
+			AtomicReference<Exception> exceptionThrown = new AtomicReference<>();
 
-		server.getScheduler().runTaskAsynchronously(null, () ->
-		{
-			try
+			server.getScheduler().runTaskAsynchronously(null, () ->
 			{
-				server.assertMainThread();
-			}
-			catch (ThreadAccessException e)
-			{
-				exceptionThrown.set(e);
+				try {
+					server.assertMainThread();
+				} catch (ThreadAccessException e) {
+					exceptionThrown.set(e);
+				}
+			});
+
+			server.getScheduler().waitAsyncTasksFinished();
+
+			if (exceptionThrown.get() != null) {
+				throw exceptionThrown.get();
 			}
 		});
-
-		server.getScheduler().waitAsyncTasksFinished();
-
-		if (exceptionThrown.get() != null)
-			throw exceptionThrown.get();
 	}
 
 	@Test
@@ -501,7 +499,7 @@ public class ServerMockTest
 	{
 		server.addPlayer("Player");
 		List<Player> players = server.matchPlayer("Others");
-		assertEquals("Player list was not empty", 0, players.size());
+		assertEquals(0, players.size(), "Player list was not empty");
 	}
 
 	@Test

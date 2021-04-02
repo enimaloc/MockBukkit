@@ -1,16 +1,16 @@
 package be.seeseemelk.mockbukkit.inventory.meta;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import org.bukkit.enchantments.Enchantment;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import be.seeseemelk.mockbukkit.MockBukkit;
 
@@ -20,7 +20,7 @@ public class EnchantedBookMetaMockTest
 	private Enchantment testEnchantment;
 	private Enchantment testEnchantment2;
 
-	@Before
+	@BeforeEach
 	public void setUp()
 	{
 		MockBukkit.mock();
@@ -28,7 +28,7 @@ public class EnchantedBookMetaMockTest
 		testEnchantment2 = new EnchantmentMock("Second Test Enchantment");
 	}
 
-	@After
+	@AfterEach
 	public void tearDown()
 	{
 		MockBukkit.unmock();

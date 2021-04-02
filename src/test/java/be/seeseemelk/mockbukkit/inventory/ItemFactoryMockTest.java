@@ -1,14 +1,14 @@
 package be.seeseemelk.mockbukkit.inventory;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import be.seeseemelk.mockbukkit.MockBukkit;
 import be.seeseemelk.mockbukkit.inventory.meta.BookMetaMock;
@@ -26,14 +26,14 @@ public class ItemFactoryMockTest
 {
 	private ItemFactoryMock factory;
 
-	@Before
+	@BeforeEach
 	public void setUp()
 	{
 		MockBukkit.mock();
 		factory = new ItemFactoryMock();
 	}
 
-	@After
+	@AfterEach
 	public void tearDown()
 	{
 		MockBukkit.unmock();

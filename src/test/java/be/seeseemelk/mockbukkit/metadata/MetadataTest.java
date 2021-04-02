@@ -1,57 +1,50 @@
 package be.seeseemelk.mockbukkit.metadata;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-
-import org.bukkit.Material;
-import org.bukkit.metadata.FixedMetadataValue;
-import org.bukkit.metadata.MetadataValue;
-import org.bukkit.metadata.Metadatable;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
-
 import be.seeseemelk.mockbukkit.MockBukkit;
 import be.seeseemelk.mockbukkit.MockPlugin;
 import be.seeseemelk.mockbukkit.TestPlugin;
 import be.seeseemelk.mockbukkit.WorldMock;
 import be.seeseemelk.mockbukkit.block.BlockMock;
 import be.seeseemelk.mockbukkit.block.state.BlockStateMock;
+import org.bukkit.Material;
+import org.bukkit.metadata.FixedMetadataValue;
+import org.bukkit.metadata.MetadataValue;
+import org.bukkit.metadata.Metadatable;
+import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
 
-@RunWith(Parameterized.class)
+import java.util.List;
+import java.util.stream.Stream;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+@Disabled("need to find a replacement for ParameterizedTest")
 public class MetadataTest<T extends Metadatable>
 {
 
-	@Before
+	@BeforeEach
 	public void setUp()
 	{
 		MockBukkit.mock();
 	}
 
-	@After
+	@AfterEach
 	public void tearDown()
 	{
 		MockBukkit.unmock();
 	}
 
-	@Parameters
-	public static Collection<Object[]> data()
+
+	private static Stream<Arguments> data()
 	{
-		return Arrays.asList(new Object[][]
-		{
-			{new MetadataTable()},
-			{new BlockMock()},
-			{new BlockStateMock(Material.DIAMOND_BLOCK)},
-			{new WorldMock()}
-		});
+		return Stream.of(
+				Arguments.of(new MetadataTable()),
+				Arguments.of(new BlockMock()),
+				Arguments.of(new BlockStateMock(Material.DIAMOND_BLOCK)),
+				Arguments.of(new WorldMock())
+		);
 	}
 
 	private final T testSubject;

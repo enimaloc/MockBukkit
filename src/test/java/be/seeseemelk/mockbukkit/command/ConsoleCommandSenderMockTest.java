@@ -1,15 +1,15 @@
 package be.seeseemelk.mockbukkit.command;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class ConsoleCommandSenderMockTest
 {
 	private ConsoleCommandSenderMock sender;
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception
 	{
 		sender = new ConsoleCommandSenderMock();
@@ -55,17 +55,19 @@ public class ConsoleCommandSenderMockTest
 		sender.assertSaid("A hello world");
 	}
 
-	@Test(expected = AssertionError.class)
+	@Test
 	public void assertSaid_WrongMessage_Asserts()
 	{
-		sender.sendMessage("My message");
-		sender.assertSaid("Some other message");
+		assertThrows(AssertionError.class, () -> {
+			sender.sendMessage("My message");
+			sender.assertSaid("Some other message");
+		});
 	}
 
-	@Test(expected = AssertionError.class)
+	@Test
 	public void assertSaid_NoMessages_Asserts()
 	{
-		sender.assertSaid("A message");
+		assertThrows(AssertionError.class, () -> sender.assertSaid("A message"));
 	}
 
 	@Test
@@ -74,11 +76,13 @@ public class ConsoleCommandSenderMockTest
 		sender.assertNoMoreSaid();
 	}
 
-	@Test(expected = AssertionError.class)
+	@Test
 	public void assertNoMore_MoreMessages_Asserts()
 	{
-		sender.sendMessage("Some message");
-		sender.assertNoMoreSaid();
+		assertThrows(AssertionError.class, () -> {
+			sender.sendMessage("Some message");
+			sender.assertNoMoreSaid();
+		});
 	}
 }
 

@@ -2,9 +2,9 @@ package be.seeseemelk.mockbukkit.boss;
 
 import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Player;
-import org.junit.Before;
-import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 
 import be.seeseemelk.mockbukkit.MockBukkit;
 import be.seeseemelk.mockbukkit.ServerMock;
@@ -13,17 +13,17 @@ import be.seeseemelk.mockbukkit.entity.PlayerMock;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarFlag;
 import org.bukkit.boss.BarStyle;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class BossBarMockTest
 {
 	private ServerMock server;
 	private BossBar bar;
 
-	@Before
+	@BeforeEach
 	public void setUp()
 	{
 		server = MockBukkit.mock();
@@ -31,7 +31,7 @@ public class BossBarMockTest
 		                           BarFlag.CREATE_FOG);
 	}
 
-	@After
+	@AfterEach
 	public void tearDown()
 	{
 		MockBukkit.unmock();
@@ -117,16 +117,16 @@ public class BossBarMockTest
 
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void testAddingPlayerNull()
 	{
-		bar.addPlayer(null);
+		assertThrows(IllegalArgumentException.class, () -> bar.addPlayer(null));
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void testRemovingNullPlayer()
 	{
-		bar.removePlayer(null);
+		assertThrows(IllegalArgumentException.class, () -> bar.removePlayer(null));
 	}
 
 }
